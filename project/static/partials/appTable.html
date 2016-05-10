@@ -12,23 +12,37 @@
             <tr>
                 <td>
                     <a ng-click="sortType = 'name'; sortReverse = !sortReverse">
-            Sushi Roll 
+            App ID 
             <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
           </a>
                 </td>
                 <td>
                     <a ng-click="sortType = 'fish'; sortReverse = !sortReverse">
-          Fish Type 
+          App Name 
             <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
           </a>
                 </td>
                 <td>
                     <a ng-click="sortType = 'tastiness'; sortReverse = !sortReverse">
-          Taste Level 
+          App Path 
             <span ng-show="sortType == 'tastiness' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'tastiness' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+                </td>
+                <td>
+                    <a ng-click="sortType = 'fish'; sortReverse = !sortReverse">
+          IP Adress 
+            <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+                </td>
+                <td>
+                    <a ng-click="sortType = 'fish'; sortReverse = !sortReverse">
+          Port Num 
+            <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
           </a>
                 </td>
             </tr>
@@ -39,10 +53,12 @@
                 <td>{{ roll.fish }}</td>
                 <td>{{ roll.tastiness }}</td>
             </tr> -->
-            <tr ng-repeat="roll in asushi | orderBy:sortType:sortReverse | filter:searchFish">
-                <td>{{ roll.name }}</td>
-                <td>{{ roll.fish }}</td>
-                <td>{{ roll.tastiness }}</td>
+            <tr ng-repeat="apps in asushi | orderBy:sortType:sortReverse | filter:searchFish">
+                <td>{{ apps.instanceNum }}</td>
+                <td>{{ apps.nodeName }}</td>
+                <td>{{ apps.path }}</td>
+                <td>{{ apps.IPAddress }}</td>
+                <td>{{ apps.port }}</td>
             </tr>
             <tr ng-hide="asushi.length"><td colspan="3">No apps hosted yet!</td></tr>
         </tbody>

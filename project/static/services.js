@@ -125,7 +125,7 @@ function getUserApps(callback) {
   // handle success
   .success(function (data) {
     if(data.status){
-      /*console.log(data);*/
+      //console.log(data);
       callback(data);
     } 
   })

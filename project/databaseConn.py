@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import sqlite3
 
-def add_instance(nodeName, path, ipadd, portno):
+def add_instance(nodeName, path, ipadd, portno,uid):
 	conn=sqlite3.connect('mydatabase.db')
 	curs=conn.cursor()
 	curs.execute("SELECT count(*) from instances")
@@ -16,7 +16,7 @@ def add_instance(nodeName, path, ipadd, portno):
 	# I used triple quotes so that I could break this string into
 	# two lines for formatting purposes.
 	curs.execute("""INSERT INTO instances values((?), (?), (?),
-    	(?), (?))""", (maxVal, path, nodeName, ipadd, portno))
+    	(?), (?), (?))""", (maxVal, path, nodeName, ipadd, portno,uid))
 	# commit the changes
 	conn.commit()
 	conn.close()
@@ -38,6 +38,20 @@ def add_worker(workerIP):
 	# commit the changes
 	conn.commit()
 	conn.close()
+
+def select_apps(uid):
+	conn=sqlite3.connect('mydatabase.db')
+	curs=conn.cursor()
+	curs.execute("SELECT instanceNum, path, nodeName, IPAddress, port from instances where uid = (?)", str(uid))
+	results = [dict((curs.description[i][0], value) \
+		for i, value in enumerate(row)) for row in curs.fetchall()]
+	r = {}
+	r["apps"] = results
+	
+	# commit the changes
+	conn.commit()
+	conn.close()
+	return r	
 	
 def check_dups(appName):
 	h =0

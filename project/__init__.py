@@ -92,17 +92,21 @@ def status():
 def getapp():
     if session.get('uid'):
         if session['uid']:
-            sushi = {"apps":[
-                    { "name": 'Cali Roll', "fish": 'Crab', "tastiness": 2 },
-                    { "name": 'Philly', "fish": 'Tuna', "tastiness": 4 },
-                    { "name": 'Tiger', "fish": 'Eel', "tastiness": 7 },
-                    { "name": 'Rainbow', "fish": 'Variety', "tastiness": 6 }
-                  ],
-                  "status":True
-                }
-            #sushi.status = True      
-            print json.dumps(sushi)
-            return json.dumps(sushi)
+           
+            userid = session['uid']
+            results = databaseConn.select_apps(userid)
+            results["status"] = True
+#            sushi = {"apps":[
+#                    { "name": 'Cali Roll', "fish": 'Crab', "tastiness": 2 },
+#                    { "name": 'Philly', "fish": 'Tuna', "tastiness": 4 },
+#                    { "name": 'Tiger', "fish": 'Eel', "tastiness": 7 },
+#                    { "name": 'Rainbow', "fish": 'Variety', "tastiness": 6 }
+#                  ],
+#                  "status":True
+#                }
+      
+#            print json.dumps(results)
+            return json.dumps(results)
     else:
         return jsonify({'status': False})         
             
@@ -141,7 +145,7 @@ def signUp():
     pathName='/'+appName
     backendName='backend_'+appName
     serverName='serv_'+appName
-    databaseConn.add_instance(appName, pathName, workerip, int(port))
+    databaseConn.add_instance(appName, pathName, workerip, int(port),session['uid'])
     print gitURL,appName
     
     #Modify HA Proxy
