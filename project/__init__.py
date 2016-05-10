@@ -127,6 +127,12 @@ def signUp():
     if check>1:
     	return json.dumps({'html':'Duplicate App Name'})
     if check==1:
+        print "app exists re deploying"
+        ipport = databaseConn.get_IP_port(appName)
+        ipport=ipport.split(':')
+        print "IP is = "+ipport[0]
+        print "Port is = "+ipport[1]
+        fabfile.install(gitURL,ipport[0],ipport[1])
     	return json.dumps({'html':'In database already.'})
     	
     workerip=databaseConn.get_workerIP()
@@ -150,7 +156,7 @@ def signUp():
     
     #Modify HA Proxy
     modifyHAProxy.insertNewApp(aclName, pathName, backendName, serverName, workerip, port)
-    #call(['haproxy -D -f /Users/akshaymathur/Documents/StudyMaterial/Labs/273/Finals/Integrate/config.cfg -p /Users/akshaymathur/Documents/StudyMaterial/Labs/273/Finals/Integrate/haproxy.pid -sf $(cat /Users/akshaymathur/Documents/StudyMaterial/Labs/273/Finals/Integrate/haproxy.pid)'])
+    call(['haproxy -D -f /home/pi/pi_cloud_cmpe273_project/config.cfg -p /home/pi/pi_cloud_cmpe273_project/haproxy.pid -sf $(cat /home/pi/pi_cloud_cmpe273_project/haproxy.pid)'],shell=True)
     return json.dumps({'html':'<span>All fields good !!</span>'})
 
 #if __name__ == "__main__":

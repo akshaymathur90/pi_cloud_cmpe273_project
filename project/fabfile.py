@@ -7,17 +7,20 @@ from fabric.api import env,run,execute,hosts
 #env.host_string = machine
 #env.passwords = { machine + ':22': '273project'}
 def install_env(url,ip,port):
+  
   #port ="8777"
   #url = "https://bitbucket.org/SamSirsikar/273project.git"
   #run("kill `lsof -t -i:"+port+"`")
   machine = "pi@"
   machine=machine+ip
+  env.warn_only = True
   env.host_string = machine
   env.passwords = { machine + ':22': 'raspberry'}
   project_name = url.rsplit("/", 1)[1]
   run("rm -rf ./" + project_name)
   run("rm -rf /tmp/venv/")
   run("virtualenv /tmp/venv")
+
   
   run("git clone " + url + " " + project_name)
   output =""
@@ -35,7 +38,7 @@ def install_env(url,ip,port):
   '''Forcing the app to run on a particular port'''
   #run("cd " + project_name + " && PORT=" + port + " PATH=/tmp/venv/bin:$PATH "+ output[1].rstrip('\r') )
   app_name = output[1].rstrip('\r').split(" ")
-  
+  run("fuser -k "+port+"/tcp")
   run("set -m; PORT=" + port + " PATH=/tmp/venv/bin:$PATH python ./"+ project_name+"/"+app_name[1].rstrip('\r')+" nohup sleep 100 >> /tmp/xxx 2>&1 < /dev/null & pty=False" )
 
 def install(url,ip,port):
