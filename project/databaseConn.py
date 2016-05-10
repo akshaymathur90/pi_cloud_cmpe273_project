@@ -55,6 +55,16 @@ def check_dups(appName):
 	# end check_dups
 	return h
 
+def get_IP_port(appName):
+        conn=sqlite3.connect('mydatabase.db')
+	cursor = conn.cursor()
+	q = 'SELECT IPAddress,port from instances where nodeName = \''+appName+'\''
+	print q
+	workerip = cursor.execute(q).fetchone()[0]
+	workerport = cursor.execute(q).fetchone()[1]
+	print workerip, workerport
+	return workerip+":"+str(workerport)
+
 def get_workerIP():
 	conn=sqlite3.connect('mydatabase.db')
 	cursor = conn.cursor()
