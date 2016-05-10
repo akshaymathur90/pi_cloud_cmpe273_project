@@ -1,50 +1,51 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Experts Pi Cloud App</title>
- 
-    
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link href="../static/css/signup.css" rel="stylesheet">
-    
-  </head>
-
-  <body>-->
- 
-      <div class="header" ng-controller="logoutController">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="main">Home</a></li>
+<div class="header" ng-controller="logoutController">
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a ui-sref="newapp">Home</a></li>
             <li role="presentation"><a ng-click='logout()' class="btn btn-default lg-out">Sign Out</a></li>
-            
-          </ul>
-        </nav>
-        <h3 id="status-buttons">PI CLOUD</h3>
-      </div>
+        </ul>
+    </nav>
+    <h3 id="status-buttons">PI CLOUD</h3>
+</div>
+<nav class="navbar navbar-inverse sidebar" role="navigation">
 
-      <div class="jumbotron">
-        <div class="text-center"><h2>Deploy New App</h2></div>
-        <form class="form-signin">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ><a ui-sref="myapps">My Apps<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon glyphicon-th"></span></a></li>
+        <li class="active" ui-sref="newapp"><a href="#">New App<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-download"></span></a></li>
+      </ul>
+    </div>
+
+</nav>
+<div class="jumbotron">
+  <ui-view></ui-view>
+    <!-- <div class="text-center">
+        <h2>Deploy New App</h2></div>
+    <form class="form-signin">
         <label for="inputName" class="sr-only">App Name</label>
         <input type="text" name="inputAppName" id="inputAppName" class="form-control" placeholder="App Name" required autofocus>
         <label for="inputEmail" class="sr-only">GitHub URL</label>
         <input type="text" name="inputGitURL" id="inputGitURL" class="form-control" placeholder="GitHub URL" required autofocus>
-       
         <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Deploy</button>
-      </form>
-      <div class="modal"></div>
-      <div class="res text-center"></div>
-      </div>
- 
-       
- 
-      <footer class="footer">
-        <p>&copy; Expert Company 2016</p>
-      </footer>
-      <script src="../static/js/jquery-1.12.3.js"></script>
-      <script src="../static/js/my-script.js"></script>
- 
-    <!--</div>
+    </form>
+    <div class="modal"></div>
+    <div class="res text-center"></div> -->
+</div>
+<footer class="footer">
+    <p>&copy; Expert Company 2016</p>
+</footer>
+<script src="../static/js/jquery-1.12.3.js"></script>
+<script src="../static/js/my-script.js"></script>
+<!--</div>
   </body>
 </html>-->

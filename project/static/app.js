@@ -1,6 +1,22 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ui.router','ngRoute']);
 
-myApp.config(function($routeProvider) {
+myApp.config(function($stateProvider, $urlRouterProvider, $routeProvider) {
+	$stateProvider
+    
+        // route to show our basic home (/home)
+        .state('newapp', {
+            url: 'newapp',
+            templateUrl: "static/partials/newApp.html",
+            access: {restricted: true}
+            /*controller: 'formController'*/
+        })
+        .state('myapps', {
+            url: 'myapps',
+            templateUrl: "static/partials/appTable.html",
+            access: {restricted: true},
+            controller: 'appsController'
+        });
+
     $routeProvider
         .when('/', { templateUrl: 'static/partials/AddApp.html' ,
     				  access: {restricted: true}
@@ -43,4 +59,5 @@ myApp.run(function ($rootScope, $location, $route, AuthService) {
         }
       });
   });
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
 });

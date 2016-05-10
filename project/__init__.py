@@ -1,6 +1,6 @@
 # project/__init__.py
 
-from flask import Flask, request, jsonify, session, render_template, json
+from flask import Flask, request, jsonify, json, session, render_template, json
 from fabric.api import env,run,execute,hosts
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -38,7 +38,6 @@ def register():
     try:
         db.session.add(user)
         db.session.commit()
-        session['logged_in'] = True
         status = 'success'
     except:
         status = 'this user is already registered'
@@ -49,14 +48,18 @@ def register():
 @app.route('/api/login', methods=['GET','POST'])
 def login():
     json_data = request.json
+    u_id =''
     user = User.query.filter_by(email=json_data['email']).first()
     if user and bcrypt.check_password_hash(
             user.password, json_data['password']):
         session['logged_in'] = True
+        session['uid'] = user.id
+        u_id = user.id
         status = True
     else:
         status = False
-    return jsonify({'result': status})
+
+    return jsonify({'result': status,'uid':u_id})
 
 #@app.route('/')
 #def index():
@@ -73,6 +76,7 @@ def index():
 @app.route('/api/logout', methods=['GET', 'POST'])
 def logout():
      session.pop('logged_in', None)
+     session.pop('uid', None)
      return jsonify({'result': 'success'})
 
 @app.route('/api/status')
@@ -82,6 +86,25 @@ def status():
             return jsonify({'status': True})
     else:
         return jsonify({'status': False}) 
+
+
+@app.route('/api/getapps',methods=['GET'])
+def getapp():
+    if session.get('uid'):
+        if session['uid']:
+            sushi = {"apps":[
+                    { "name": 'Cali Roll', "fish": 'Crab', "tastiness": 2 },
+                    { "name": 'Philly', "fish": 'Tuna', "tastiness": 4 },
+                    { "name": 'Tiger', "fish": 'Eel', "tastiness": 7 },
+                    { "name": 'Rainbow', "fish": 'Variety', "tastiness": 6 }
+                  ],
+                  "status":True
+                }
+            #sushi.status = True      
+            print json.dumps(sushi)
+            return json.dumps(sushi)
+    else:
+        return jsonify({'status': False})         
             
 @app.route('/registerworker',methods=['POST'])
 def registerWorker():

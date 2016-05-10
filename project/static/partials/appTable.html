@@ -1,0 +1,51 @@
+<div id="apptable" ng-controller="mainController">
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="Search your app" ng-model="searchFish">
+            </div>
+        </div>
+    </form>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>
+                    <a ng-click="sortType = 'name'; sortReverse = !sortReverse">
+            Sushi Roll 
+            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+                </td>
+                <td>
+                    <a ng-click="sortType = 'fish'; sortReverse = !sortReverse">
+          Fish Type 
+            <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+                </td>
+                <td>
+                    <a ng-click="sortType = 'tastiness'; sortReverse = !sortReverse">
+          Taste Level 
+            <span ng-show="sortType == 'tastiness' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'tastiness' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr ng-repeat="roll in sushi | orderBy:sortType:sortReverse | filter:searchFish">
+                <td>{{ roll.name }}</td>
+                <td>{{ roll.fish }}</td>
+                <td>{{ roll.tastiness }}</td>
+            </tr> -->
+            <tr ng-repeat="roll in asushi | orderBy:sortType:sortReverse | filter:searchFish">
+                <td>{{ roll.name }}</td>
+                <td>{{ roll.fish }}</td>
+                <td>{{ roll.tastiness }}</td>
+            </tr>
+            <tr ng-hide="asushi.length"><td colspan="3">No apps hosted yet!</td></tr>
+        </tbody>
+    </table>
+    
+</div>

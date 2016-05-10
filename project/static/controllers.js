@@ -1,6 +1,6 @@
 angular.module('myApp').controller('loginController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$state','$scope', '$location', 'AuthService',
+  function ($state, $scope, $location, AuthService) {
 
     $scope.login = function () {
 
@@ -12,7 +12,8 @@ angular.module('myApp').controller('loginController',
       AuthService.login($scope.loginForm.email, $scope.loginForm.password)
         // handle success
         .then(function () {
-          $location.path('/');
+          $location.path('/newapp');
+          $state.transitionTo('newapp');
           $scope.disabled = false;
           $scope.loginForm = {};
         })
@@ -75,3 +76,41 @@ angular.module('myApp').controller('registerController',
     };
 
 }]);
+
+angular.module('myApp').controller('appsController', function() {
+    /*this.current = 0;
+    this.setCurrent = function(newGallery) {
+        this.current = newGallery || 0;
+    };*/
+    $('#bs-sidebar-navbar-collapse-1 ul li').removeClass("active");  // this deactivates the home tab
+    $('#bs-sidebar-navbar-collapse-1 ul li').first().addClass("active");
+});
+
+angular.module('myApp').controller('mainController',
+  ['$scope', 'AuthService',
+  function ($scope, AuthService) {
+
+      $scope.sortType     = 'name'; // set the default sort type
+      $scope.sortReverse  = false;  // set the default sort order
+      $scope.searchFish   = '';     // set the default search/filter term
+
+      AuthService.getUserApps(function(data){
+        if(data.status){
+          $scope.asushi = data.apps;
+        }
+        else{
+          $scope.asushi = [];
+        }
+      })
+      
+      /*$scope.sushi = [
+        { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
+        { name: 'Philly', fish: 'Tuna', tastiness: 4 },
+        { name: 'Tiger', fish: 'Eel', tastiness: 7 },
+        { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
+      ];*/
+  
+}]);
+
+
+
