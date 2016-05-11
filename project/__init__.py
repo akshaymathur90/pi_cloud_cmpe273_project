@@ -8,6 +8,7 @@ import fabfile
 import sqlite3
 import modifyHAProxy
 import databaseConn
+import os
 from subprocess import call
 from project.config import BaseConfig
 
@@ -96,16 +97,11 @@ def getapp():
             userid = session['uid']
             results = databaseConn.select_apps(userid)
             results["status"] = True
-#            sushi = {"apps":[
-#                    { "name": 'Cali Roll', "fish": 'Crab', "tastiness": 2 },
-#                    { "name": 'Philly', "fish": 'Tuna', "tastiness": 4 },
-#                    { "name": 'Tiger', "fish": 'Eel', "tastiness": 7 },
-#                    { "name": 'Rainbow', "fish": 'Variety', "tastiness": 6 }
-#                  ],
-#                  "status":True
-#                }
-      
-#            print json.dumps(results)
+            f = os.popen('ifconfig eth0 | grep "inet\ addr" | cut -d: -f2 | cut -d" " -f1')
+            your_ip=f.read()
+            ip1 = your_ip.strip()
+            print ip1
+            results["url"] = 'http://'+ ip1 +':8090'
             return json.dumps(results)
     else:
         return jsonify({'status': False})         
@@ -157,7 +153,11 @@ def signUp():
     #Modify HA Proxy
     modifyHAProxy.insertNewApp(aclName, pathName, backendName, serverName, workerip, port)
     call(['haproxy -D -f /home/pi/Final_Pi_Cloud/pi_cloud_cmpe273_project/config.cfg -p /home/pi/Final_Pi_Cloud/pi_cloud_cmpe273_project/haproxy.pid -sf $(cat /home/pi/Final_Pi_Cloud/pi_cloud_cmpe273_project/haproxy.pid)'],shell=True)
-    return json.dumps({'html':'<p>Application Deployed</p>'})
+    f = os.popen('ifconfig eth0 | grep "inet\ addr" | cut -d: -f2 | cut -d" " -f1')
+    your_ip=f.read()
+    ip1 = your_ip.strip()
+    print ip1
+    return json.dumps({'html':'<p>Application Deployed @ <a>http://'+ ip1 +':8090'+pathName+'</a></p>'})
 
 #if __name__ == "__main__":
  #   app.run(debug=True)		

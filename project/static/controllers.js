@@ -96,7 +96,7 @@ angular.module('myApp').controller('mainController',
 
       AuthService.getUserApps(function(data){
         if(data.status){
-          $scope.asushi = data.apps;
+          $scope.asushi = data;
         }
         else{
           $scope.asushi = [];
