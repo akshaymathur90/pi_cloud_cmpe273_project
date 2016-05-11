@@ -133,7 +133,7 @@ def signUp():
         print "IP is = "+ipport[0]
         print "Port is = "+ipport[1]
         fabfile.install(gitURL,ipport[0],ipport[1])
-    	return json.dumps({'html':'In database already.'})
+    	return json.dumps({'html':'<p>Application Re-Deployed</p>'})
     	
     workerip=databaseConn.get_workerIP()
     print "Worker iP from db = "+workerip
@@ -141,7 +141,7 @@ def signUp():
     port = databaseConn.get_availablePorts(workerip)
     
     if port == -1:
-    	return json.dumps({'html':'All ports are in use.'})
+    	return json.dumps({'html':'<p>Sorry! All nodes are occupied</p>'})
     fabfile.install(gitURL,workerip,port)
     
     #Input data to DB
@@ -156,8 +156,8 @@ def signUp():
     
     #Modify HA Proxy
     modifyHAProxy.insertNewApp(aclName, pathName, backendName, serverName, workerip, port)
-    call(['haproxy -D -f /home/pi/pi_cloud_cmpe273_project/config.cfg -p /home/pi/pi_cloud_cmpe273_project/haproxy.pid -sf $(cat /home/pi/pi_cloud_cmpe273_project/haproxy.pid)'],shell=True)
-    return json.dumps({'html':'<span>All fields good !!</span>'})
+    call(['haproxy -D -f /home/pi/Final_Pi_Cloud/pi_cloud_cmpe273_project/config.cfg -p /home/pi/Final_Pi_Cloud/pi_cloud_cmpe273_project/haproxy.pid -sf $(cat /home/pi/Final_Pi_Cloud/pi_cloud_cmpe273_project/haproxy.pid)'],shell=True)
+    return json.dumps({'html':'<p>Application Deployed</p>'})
 
 #if __name__ == "__main__":
  #   app.run(debug=True)		

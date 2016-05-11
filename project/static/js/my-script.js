@@ -19,7 +19,9 @@ $(document).ready(function() {
                 type: 'POST',
                 success: function(response) {
                     setTimeout(function(){}, 6000);
-                    $( ".res" ).html( "<p>Application Deployed</p>" );
+		    var json = JSON.parse(response);
+		    console.log(json.html);
+                    $( ".res" ).html( json.html );
                     console.log(response);
                 },
                 error: function(error) {
