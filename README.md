@@ -22,7 +22,20 @@ Pi Cloud is a Raspberry Pi based PaaS service that can add or remove the nodes i
 1. Keep track of the controller node in the Pi-Cloud.
 2. Provide controller node details to worker nodes.
 
-<h3>Running this project:-</h3>
+<h2>Technologies Used:-</h2>
+1. User Interface: AngularJS and HTML
+2. Backend Server: Python Flask
+3. Python Fabric library to connect to worker nodes.
+4. HAProxy for dynamic HTTP Routing.
+5. Sqlite3 Database.
+
+<h2>Screenshots:-</h2>
+To Deploy an App:
+![Alt text](/screenshots/Deploying%20an%20App.png?raw=true "Deployed Apps")
+To view Deployed Apps:
+![Alt text](/screenshots/All%20Deployed%20Apps.png?raw=true "Deployed Apps")
+
+<h2>Running this project:-</h2>
 1. Clone the source code on a Raspberry Pi.
 2. Create and activate a virtual environment.
 3. Install the dependencies using pip install -r requirements.txt
