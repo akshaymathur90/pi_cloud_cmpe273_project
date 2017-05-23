@@ -31,9 +31,9 @@ Pi Cloud is a Raspberry Pi based PaaS service that can add or remove the nodes i
 
 <h2>Screenshots:-</h2>
 To Deploy an App:
-![alt text](/screenshots/Deploying%20an%20App.png?raw=true "Deployed Apps")
+![alt text](/screenshots/Deploying an App.png "Deployed Apps")
 To view Deployed Apps:
-![alt text](/screenshots/All%20Deployed%20Apps.png?raw=true "Deployed Apps")
+![alt text](/screenshots/All Deployed Apps.png "Deployed Apps")
 
 <h2>Running this project:-</h2>
 1. Clone the source code on a Raspberry Pi.
